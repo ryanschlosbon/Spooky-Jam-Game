@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linePrefab: {fileID: 4502960007427287430, guid: a45c768ef9e6e0d4abda58f861cc0985, type: 3}
+  activeLine: {fileID: 0}
 --- !u!4 &1045030243
 Transform:
   m_ObjectHideFlags: 0
@@ -254,7 +255,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.6965913, y: -1.1651349, z: -7.3995614}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -562,8 +563,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theRB: {fileID: 1468562128}
-  plyrMovSpd: 5
-  accelRate: 0.1
+  plyrMovSpd: 6
+  accelRate: 0.4
   plyrAccel: 1
   accelMax: 3
   jumpForce: 5
@@ -572,10 +573,16 @@ MonoBehaviour:
   atBase: 0
   isGrounded: 0
   groundCheck: {fileID: 1793650630}
+  playerSprite: {fileID: 1468562126}
   groundCheckRadius: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  isSliding: 0
+  canSlide: 0
+  lineRenderer: {fileID: 0}
+  currentPointIndex: 0
+  iceSpeed: 9
 --- !u!1 &1793650629
 GameObject:
   m_ObjectHideFlags: 0

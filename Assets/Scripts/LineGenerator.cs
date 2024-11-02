@@ -5,7 +5,7 @@ using UnityEngine;
 public class LineGenerator : MonoBehaviour
 {
     public GameObject linePrefab;
-    Line activeLine;
+    public Line activeLine;
 
     // Update is called once per frame
     void Update()
