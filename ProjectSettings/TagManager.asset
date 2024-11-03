@@ -43,3 +43,42 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 534332289
+    locked: 0
+  - name: Brick Wall
+    uniqueID: 4009830517
+    locked: 0
+  - name: Lanterns
+    uniqueID: 1650619769
+    locked: 0
+  - name: Cobble Arch
+    uniqueID: 1921143317
+    locked: 0
+  - name: Pillar
+    uniqueID: 1286293417
+    locked: 0
+  - name: Furnitures
+    uniqueID: 4221247253
+    locked: 0
+  - name: Arch
+    uniqueID: 3727539079
+    locked: 0
+  - name: Arch Top
+    uniqueID: 2435499943
+    locked: 0
+  - name: Carpet
+    uniqueID: 1094207281
+    locked: 0
+  - name: Spikes
+    uniqueID: 3796951073
+    locked: 0
+  - name: Flooring
+    uniqueID: 39360165
+    locked: 0
+  - name: Brick Tile
+    uniqueID: 2960963503
+    locked: 0
+  - name: Ceiling
+    uniqueID: 2770485247
+    locked: 0
