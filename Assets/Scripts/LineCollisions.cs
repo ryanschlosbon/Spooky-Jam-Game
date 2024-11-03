@@ -14,6 +14,7 @@ public class LineCollisions : MonoBehaviour
     {
         edgeCollider = this.GetComponent<EdgeCollider2D>();
         line = this.GetComponent<LineRenderer>();
+        
     }
 
     void Update()

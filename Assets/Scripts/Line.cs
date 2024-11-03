@@ -6,9 +6,17 @@ using System.Linq;
 public class Line : MonoBehaviour
 {
     public LineRenderer lineRenderer;
+    public GameObject self;
+    public float counter;
+    public float counterRate;
+    public int index;
 
     List<Vector2> points;
     // Start is called before the first frame update
+    public void Start()
+    {
+        index = 0;
+    }
 
     public void UpdateLine(Vector2 position)
     {
@@ -24,6 +32,15 @@ public class Line : MonoBehaviour
             SetPoint(position);
         }
 
+    }
+
+    public void Update()
+    {
+        counter += Time.deltaTime;
+        if (counter >= counterRate)
+        {
+            Destroy(self);
+        }
     }
 
     void SetPoint(Vector2 point)

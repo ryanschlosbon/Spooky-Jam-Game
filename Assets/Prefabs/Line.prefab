@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7495781682283066659}
   - component: {fileID: 526823654228733597}
   - component: {fileID: 5421978718619117023}
+  - component: {fileID: 2947001289133870823}
   m_Layer: 6
   m_Name: Line
   m_TagString: Ice
@@ -152,6 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 6506016231781607363}
+  self: {fileID: 4502960007427287430}
+  counter: 0
+  counterRate: 3
+  index: 0
 --- !u!114 &526823654228733597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +204,7 @@ EdgeCollider2D:
   m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: -0.5, y: 0}
-  m_EdgeRadius: 0.1
+  m_EdgeRadius: 0.05
   m_Points:
   - {x: -0.45218825, y: -0.0066337883}
   - {x: 0.3833053, y: -0.009510003}
@@ -207,3 +212,22 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!251 &2947001289133870823
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502960007427287430}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1

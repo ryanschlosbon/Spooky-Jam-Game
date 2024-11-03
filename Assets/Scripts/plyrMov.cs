@@ -8,6 +8,7 @@ public class plyrMov : MonoBehaviour
 
     [Header("Rigidbody")]
     public Rigidbody2D theRB;
+    public Rigidbody2D theRB2;
 
     [Header("Editable-Player-Stuff")]
     public float plyrMovSpd;
@@ -29,15 +30,18 @@ public class plyrMov : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Line Stuff")]
-    public bool isSliding, canSlide;
+    public bool canSlide;
     public LayerMask iceLayer;
     public LineRenderer lineRenderer;
     public int currentPointIndex = 0;
     public int iceSpeed;
+    public float iceCheckRadius;
+    public float iceAccelRate, iceAccel;
 
     void Start()
     {
         theRB.freezeRotation = true;
+        iceAccel = 0;
         plyrAccel = 1f;
         atBase = 0;
     }
@@ -50,21 +54,31 @@ public class plyrMov : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         theRB.velocity = new Vector2(horizontalInput * (plyrMovSpd * plyrAccel), theRB.velocity.y);
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        canSlide = Physics2D.OverlapCircle(playerSprite.position, iceCheckRadius, iceLayer);
+
+        if (canSlide)
+        {
+            iceAccel = iceAccelRate;
+        }
+        if (!canSlide)
+        {
+            iceAccel = 0;
+        }
 
         if (horizontalInput > 0 && plyrAccel < accelMax)
         {
-            plyrAccel += accelRate * Time.deltaTime;
+            plyrAccel += (accelRate + iceAccel) * Time.deltaTime;
         }
         if (horizontalInput <=0 && plyrAccel >= 1f)
         {
-            plyrAccel -= accelRate * Time.deltaTime;
+            plyrAccel -= (accelRate + iceAccel) * Time.deltaTime;
         }
         
-        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || isSliding))
+        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || canSlide))
         {
             Debug.Log("This is working");
             Jump();
-        }   
+        }
 
         if (verticalInput < 0)
         {
@@ -82,15 +96,19 @@ public class plyrMov : MonoBehaviour
 
             if (lineRenderer != null)
             {
-                Debug.Log("Found a LineRenderer on" + other.gameObject.name);
+                Debug.Log("Found a LineRenderer on" + other.name);
             }
         }
     }
 
     void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Ice"))
+    {   
+
+        if (other.CompareTag("Ice") && lineRenderer != null)
         {
+            canSlide = true;
+            iceAccel = iceAccelRate;
+
             if (currentPointIndex >= lineRenderer.positionCount)
             {
                 return;
@@ -99,14 +117,29 @@ public class plyrMov : MonoBehaviour
             Debug.Log("Target position is " + targetPosition);
             Vector2 direction = (targetPosition - theRB.position).normalized;
             Debug.Log("Direction is " + direction);
-            theRB.velocity = new Vector2(theRB.velocity.x + (direction.x * iceSpeed), theRB.velocity.y + (direction.y * iceSpeed));
-            float distance = Vector2.Distance(theRB.position, targetPosition);
-            if (distance < 0.1f || (distance > - 0.1f))
+            theRB2.AddForce((direction * iceSpeed) * Time.deltaTime, ForceMode2D.Force);
+            float distance = Vector2.Distance(theRB.position, lineRenderer.GetPosition(lineRenderer.positionCount - 1));
+            if (distance < 0.1f)
             {
                 currentPointIndex++;
+                if (currentPointIndex >= lineRenderer.positionCount)
+                {
+                    currentPointIndex = lineRenderer.positionCount - 1; // Stay on last point if exceeded
+                }
             }
 
             
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Ice"))
+        {
+            canSlide = false; // Reset sliding state
+            lineRenderer = null; // Clear reference to LineRenderer
+            currentPointIndex = 0; // Optionally reset index
+            Debug.Log("Exited Ice");
         }
     }
 
@@ -118,6 +151,11 @@ public class plyrMov : MonoBehaviour
     public void Jump()
     {
         theRB.velocity = new Vector2(theRB.velocity.x, theRB.velocity.y + jumpForce);
+    }
+
+    public void IceJump()
+    {
+        theRB.velocity = new Vector2(theRB.velocity.x, theRB.velocity.y + (jumpForce * plyrAccel));
     }
 
     public int GetClosestIndex()
