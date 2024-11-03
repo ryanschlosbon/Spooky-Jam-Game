@@ -69,11 +69,11 @@ public class plyrMov : MonoBehaviour
         {
             plyrAccel += (accelRate + iceAccel) * Time.deltaTime;
         }
-        if (horizontalInput <=0 && plyrAccel >= 1f)
+        if (horizontalInput <= 0 && plyrAccel >= 1f)
         {
             plyrAccel -= (accelRate + iceAccel) * Time.deltaTime;
         }
-        
+
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || canSlide))
         {
             Debug.Log("This is working");
@@ -102,7 +102,7 @@ public class plyrMov : MonoBehaviour
     }
 
     void OnTriggerStay2D(Collider2D other)
-    {   
+    {
 
         if (other.CompareTag("Ice") && lineRenderer != null)
         {
@@ -128,7 +128,7 @@ public class plyrMov : MonoBehaviour
                 }
             }
 
-            
+
         }
     }
 
